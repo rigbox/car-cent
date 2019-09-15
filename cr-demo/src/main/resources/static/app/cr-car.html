@@ -1,0 +1,234 @@
+	<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="../assets/default/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../assets/default/img/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="../assets/default/img/favicon.ico" type="image/x-icon" />
+    <title>Car Wallet</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../assets/plugins/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../assets/adminlte/css/adminlte.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../assets/plugins/DataTables-1.10.18/css/jquery.dataTables.min.css"/>
+    <!-- Google Font: Source Sans Pro
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">-->
+  </head>
+
+  <body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-light navbar-white">
+        <div class="container">
+          <a href="#" class="navbar-brand">
+            <img src="../assets/default/img/rig-logo.png" alt="Car Wallet Logo" class="brand-image img-circle elevation-3">
+            <span class="brand-text font-weight-light"><h4 class="m-0 text-dark">Car Wallet</h4></span>
+          </a>
+          <!-- Right navbar links -->
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-none d-sm-inline-block">
+              <a href="#" class="nav-link" id="createCarWallet"><div id="carAddress">Please Create Car Wallet at first!</div></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- /.navbar -->
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-10">
+                <div class="card card-primary card-outline">
+                  <div class="card-header">
+                    <h3 class="card-title">Car Elements</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->
+                  <form role="form" id="searchForm">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="password">PIN</label>
+                            <input type="password" name="password" id="password" class="form-control" value="rig1234"/>
+                            <input type="hidden" name="vAddress" id="vAddress" value=""/>
+                          </div>
+                          <div class="form-group">
+                            <label for="cAddress">Contract</label>
+                            <input type="text" name="cAddress" id="cAddress" class="form-control" placeholder="Contract Address" value="0xE4e03104550F7Db498BB946886358D207791317C"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="mAddress">Manager</label>
+                            <input type="text" name="mAddress" id="mAddress" class="form-control" placeholder="Manager Address" value="0xe9f80bd37d9084e7dc4c42adb97ec8a82435954a"/>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <div class="form-group">
+                            <label for="vId">Car ID</label>
+                            <input type="text" name="vId" id="vId" class="form-control" placeholder="Car ID" value="1"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="vColor">Car Color</label>
+                            <input type="text" name="vColor" id="vColor" class="form-control" placeholder="Car Color" value="White"/>
+                          </div>
+                          <div class="form-group">
+                            <label for="vType">Car Type</label>
+                            <input type="text" name="vType" id="vType" class="form-control" placeholder="Car Type" value="GL8"/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+                    </form>
+                    <div class="card-footer">
+                      <button id="registerCarButton" type="button" class="btn btn-primary  ">
+                        Register Car
+                      </button>
+                      <button id="startCarButton" type="button" class="btn btn-primary  float-right ">
+                        Open Door & Start Rental
+                      </button>
+                    </div>
+                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2018-2019 <a href="https://www.rigsec.com">RigSec</a>.</strong> All rights reserved.
+      </footer>
+    </div>
+    <!-- ./wrapper -->
+    <div id="msgModal" class="modal fade" tabindex="-1" aria-labelledby="Message Windows">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content card card-danger card-outline">
+          <div class="modal-header">
+            <h5 class="modal-title" ><i class="fa fa-comments-o"></i>&nbsp;Message</h5>
+            <div class="card-tools">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+          </div>
+          <div class="modal-body" id="msgModalContent">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--/. confirm-Modal-Content -->
+    <div id="confirmModal" class="modal fade" tabindex="-1" aria-labelledby="Message Windows">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content card card-warning card-outline">
+          <div class="modal-header">
+            <h5 class="modal-title" ><i class="fa fa-comments-o"></i>&nbsp;Please Confirm</h5>
+            <div class="card-tools">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+          </div>
+          <div class="modal-body" id="confirmContent">
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="confirmModalCancel" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" id="confirmModalSubmit" class="btn green btn-primary">Confirm</button>
+          </div>
+          <form id="confirmForm" action="">
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="../assets/plugins/DataTables-1.10.18/js/jquery.dataTables.min.js" type="text/javascript" ></script>
+    <!-- AdminLTE App -->
+    <script src="../assets/adminlte/js/adminlte.min.js"></script>
+    <script src="../javascript/rig.core.js"></script>
+    <script>
+      $(function() {
+
+          $("#createCarWallet").on('click',function(){
+            var _url = "../wallet/create";
+            var _data = RIG.GetForm($('#searchForm'));
+            RIG.ajaxJson(_url,_data,function(response){
+                if(response.code=='9000'){
+                    $("#carAddress").html(response.data.address);
+                    $("#vAddress").val(response.data.address);
+                }else{
+                    RIG.msgModal("Create Car Wallet Failed!");
+                }
+            });
+          });
+          $("#registerCarButton").on('click',function(){
+            var va = $("#vAddress").val();
+              if( va == '') {
+                  RIG.msgModal("Please Create Car Wallet at first!");
+                  return;
+              }
+            var _url = "../vehicle/create";
+            var _data = RIG.GetForm($('#searchForm'));
+            RIG.ajaxJson(_url,_data,function(response){
+                if(response.code=='9000'){
+                    RIG.msgModal("Register Car to Blockchain is Success!" + response.data);
+                }else{
+                    RIG.msgModal("Register Car Failed!");
+                }
+            });
+        });
+
+      $("#startCarButton").on('click',function(){
+            var va = $("#vAddress").val();
+              if( va == '') {
+                  RIG.msgModal("Please Create Car Wallet at first!");
+                  return;
+              }
+            var _url = "../vehicle/start";
+            var _data = RIG.GetForm($('#searchForm'));
+            RIG.ajaxJson(_url,_data,function(response){
+                if(response.code=='9000'){
+                    RIG.msgModal("Door Opened & Rental Start!" + response.data);
+                }else{
+                    RIG.msgModal("Start Car Failed!");
+                }
+            });
+        });
+
+      });
+
+    </script>
+  </body>
+</html>

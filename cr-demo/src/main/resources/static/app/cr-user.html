@@ -1,0 +1,291 @@
+	<!doctype html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="../assets/default/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="../assets/default/img/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="../assets/default/img/favicon.ico" type="image/x-icon" />
+    <title>User Wallet</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/plugins/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../assets/plugins/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../assets/adminlte/css/adminlte.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../assets/plugins/DataTables-1.10.18/css/jquery.dataTables.min.css"/>
+    <!-- Google Font: Source Sans Pro
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">-->
+  </head>
+
+  <body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-light navbar-white">
+        <div class="container">
+          <a href="#" class="navbar-brand">
+            <img src="../assets/default/img/rig-logo.png" alt="User Wallet Logo" class="brand-image img-circle elevation-3">
+            <span class="brand-text font-weight-light"><h4 class="m-0 text-dark">User Wallet</h4></span>
+          </a>
+          <!-- Right navbar links -->
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item d-none d-sm-inline-block">
+              <a href="#" class="nav-link" id="createUserWallet"><div id="userAddress">Please Create User Wallet at first!</div></a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <!-- /.navbar -->
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                  <!-- header start -->
+                  <div class="card-header">
+                    <form id="searchForm" >
+                      <div class="row">
+                        <div class="col-2">
+                          <div class="input-group ">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">PIN:</span>
+                            </div>
+                            <input type="password" name="password" class="form-control" value="rig1234"/>
+                            <input type="hidden" name="uAddress" id="uAddress"/>
+                            <input type="hidden" name="vAddress" id="vAddress"/>
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="input-group ">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text">Contract:</span>
+                            </div>
+                            <input type="text" name="cAddress" class="form-control" placeholder="Contract Address" value="0xE4e03104550F7Db498BB946886358D207791317C"/>
+                          </div>
+                        </div>
+                        <div class="col-auto">
+                          <button id="getCarList" type="button" class="btn btn-primary  ">
+                            <i class="fa fa-refresh"></i>&nbsp;Get Car List
+                          </button>
+                          <button id="bookCarButton" type="button" class="btn btn-primary  ">
+                            Book Car
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <!-- body start -->
+                  <div class="card-body" style="padding-top: 5px;">
+                    <table id="data-table" class="cell-border hover order-column">
+                      <thead>
+                      <tr>
+                        <th>VID</th>
+                        <th>Car Address</th>
+                        <th>Car Color</th>
+                        <th>Car Type</th>
+                      </tr>
+                      </thead>
+                      <tfoot>
+                      <tr>
+                        <th>VID</th>
+                        <th>Car Address</th>
+                        <th>Car Color</th>
+                        <th>Car Type</th>
+                      </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+                <!-- /.card -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Main Footer -->
+      <footer class="main-footer">
+        <!-- To the right -->
+        <div class="float-right d-none d-sm-inline">
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2018-2019 <a href="https://www.rigsec.com">RigSec</a>.</strong> All rights reserved.
+      </footer>
+    </div>
+    <!-- ./wrapper -->
+    <div id="msgModal" class="modal fade" tabindex="-1" aria-labelledby="Message Windows">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content card card-danger card-outline">
+          <div class="modal-header">
+            <h5 class="modal-title" ><i class="fa fa-comments-o"></i>&nbsp;Message</h5>
+            <div class="card-tools">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+          </div>
+          <div class="modal-body" id="msgModalContent">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--/. confirm-Modal-Content -->
+    <div id="confirmModal" class="modal fade" tabindex="-1" aria-labelledby="Message Windows">
+      <div class="modal-dialog modal-ms">
+        <div class="modal-content card card-warning card-outline">
+          <div class="modal-header">
+            <h5 class="modal-title" ><i class="fa fa-comments-o"></i>&nbsp;Book Car Success</h5>
+            <div class="card-tools">
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="vId">Car ID</label>
+              <input type="text" name="vId" id="vId" class="form-control" placeholder="Car ID" readonly/>
+            </div>
+            <div class="form-group">
+              <label for="vColor">Car Color</label>
+              <input type="text" name="vColor" id="vColor" class="form-control" placeholder="Car Color" readonly/>
+            </div>
+            <div class="form-group">
+              <label for="vType">Car Type</label>
+              <input type="text" name="vType" id="vType" class="form-control" placeholder="Car Type" readonly/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="cancelBookButton" class="btn btn-default">Cancel Order</button>
+            <button type="button" id="openDoorButton" class="btn green btn-primary">Open Door</button>
+          </div>
+          <form id="confirmForm" action="">
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- REQUIRED SCRIPTS -->
+
+    <!-- jQuery -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="../assets/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables -->
+    <script src="../assets/plugins/DataTables-1.10.18/js/jquery.dataTables.min.js" type="text/javascript" ></script>
+    <!-- AdminLTE App -->
+    <script src="../assets/adminlte/js/adminlte.min.js"></script>
+    <script src="../javascript/rig.core.js"></script>
+    <script>
+      $(function() {
+          RIG._data_table = $('#data-table').DataTable({
+              "ajax" : "../vehicles?" + $('#searchForm').serialize(),
+              "paging": true,
+              "serverSide": true,
+              "searching": false,
+              "ordering": false,
+              "columns" : [
+                  { "data" : "vId" },
+                  { "data" : "vAddress" },
+                  { "data" : "vColor" },
+                  { "data" : "vType" }
+              ]
+          });
+
+          RIG.rowSelected();
+          $("#createUserWallet").on('click',function(){
+            var _url = "../wallet/create";
+            var _data = RIG.GetForm($('#searchForm'));
+            RIG.ajaxJson(_url,_data,function(response){
+                if(response.code=='9000'){
+                    $("#userAddress").html(response.data.address);
+                    $("#uAddress").val(response.data.address);
+                }else{
+                    RIG.msgModal("Create User Wallet Failed!");
+                }
+            });
+        });
+        $("#getCarList").on('click',function(){
+              var va = $("#uAddress").val();
+              if( va == '') {
+                  RIG.msgModal("Please Create User Wallet at first!");
+                  return;
+              }
+              var _url = "../vehicles"+'?'+$('#searchForm').serialize();
+              RIG._data_table.ajax.url(_url).load();
+        });
+        $("#bookCarButton").on('click',function(){
+            var dataTable=$('#data-table').DataTable();
+			var rs = dataTable.row('.selected').data();
+			if(rs==undefined||rs.vId==''){
+				RIG.msgModal('Please select one line!');
+				return;
+			}
+            var _url = "../vehicle/book";
+            $("#vAddress").val(rs.vAddress);
+	    	var _data = RIG.GetForm($('#searchForm'));
+	    	RIG.ajaxJson(_url,_data,function(response){
+	    		if(response.code=='9000'){
+                    $("#vId").val(response.data.vId);
+                    $("#vColor").val(response.data.vColor);
+                    $("#vType").val(response.data.vType);
+	    		    RIG.openConfirmModal(response.message);
+	    		}else{
+	    			RIG.msgModal(response.message);
+	    		}
+	    	});
+        });
+
+        $("#openDoorButton").on('click',function(){
+            $('#confirmModal').modal('toggle'); // close the dialog
+            var _url = "../vehicle/open";
+            var _data = RIG.GetForm($('#searchForm'));
+            RIG.ajaxJson(_url,_data,function(response){
+                var _url = "../vehicles"+'?'+$('#searchForm').serialize();
+                RIG._data_table.ajax.url(_url).load();
+                if(response.code=='9000'){
+                    //RIG.msgModal("Open Door Success!");
+                }else{
+                    RIG.msgModal("Open door Failed!");
+                }
+            });
+        });
+
+        $("#cancelBookButton").on('click',function(){
+            $('#confirmModal').modal('toggle'); // close the dialog
+            var _url = "../vehicle/cancel";
+            var _data = RIG.GetForm($('#searchForm'));
+            RIG.ajaxJson(_url,_data,function(response){
+                var _url = "../vehicles"+'?'+$('#searchForm').serialize();
+                RIG._data_table.ajax.url(_url).load();
+                if(response.code=='9000'){
+                    RIG.msgModal("Cancel Book Success!");
+                }else{
+                    RIG.msgModal("Cancel Book Failed!");
+                }
+            });
+        });
+      });
+
+    </script>
+  </body>
+</html>

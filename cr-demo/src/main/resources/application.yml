@@ -1,0 +1,15 @@
+server:
+  port: 18682
+  servlet:
+     context-path: /car-rent
+
+logging:
+  file: log/car-rent.log
+  level:
+    com.rigsec: DEBUG
+    org.springframework: INFO
+    org.mongodb: INFO
+
+node:
+  url: http://39.98.35.176:22000/
+  contract: "0x1760EF4589435FeE6BCb8BcEBaBAc148c1D28218"
